@@ -42,7 +42,6 @@ public class Philosopher implements Runnable {
         }
     }
 
-
     public void releaseChopsticks() {
         leftChopstick.release();
         rightChopstick.release();
