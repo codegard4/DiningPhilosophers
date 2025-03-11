@@ -1,5 +1,4 @@
 ### IntelliJ IDEA ###
-out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/*
@@ -30,3 +29,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Other ###
+out/
+build/
+README.html
+README_files

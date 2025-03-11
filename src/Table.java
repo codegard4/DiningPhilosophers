@@ -1,27 +1,44 @@
 package src;
 
 /**
- * A philosopher group is a group of philosophers that dine together
+ * A Table holds a group of n philosophers that dine together and n chopsticks.
  * Dining includes each philosopher attempting to get two chopsticks, eating
  * then thinking
  */
-public class PhilosopherGroup {
+public class Table {
 
+    /**
+     * Main method to start the dining philosophers simulation.
+     * Creates a table with 5 philosophers and starts the dining process.
+     *
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
-        PhilosopherGroup pg = new PhilosopherGroup(5);
-        pg.dine();
+        Table table = new Table(5);
+        table.dine();
     }
 
+    /**
+     * The duration in milliseconds that the philosophers will dine for
+     */
     private final int DINING_TIME = 5000;
+
+    /**
+     * Array of philosophers sitting at the table
+     */
     private final Philosopher[] philosophers;
+
+    /**
+     * Array of chopsticks available at the table
+     */
     private final Chopstick[] chopsticks;
 
     /**
      * Constructor for the philosopher group
-     * 
+     *
      * @param num_philosophers number of philosophers and chopsticks
      */
-    public PhilosopherGroup(int num_philosophers) {
+    public Table(int num_philosophers) {
         philosophers = new Philosopher[num_philosophers];
         chopsticks = new Chopstick[num_philosophers];
 
@@ -56,7 +73,7 @@ public class PhilosopherGroup {
     }
 
     /**
-     * Starts all of the philosophers eating & thinking
+     * Starts all the philosophers eating & thinking
      */
     public void startThreads() {
         for (Philosopher p : philosophers) {
@@ -66,7 +83,7 @@ public class PhilosopherGroup {
     }
 
     /**
-     * Stops all of the philosophers from eating & thinking
+     * Stops all the philosophers from eating & thinking
      */
     public void stopThreads() {
         for (Philosopher p : philosophers) {
@@ -74,6 +91,10 @@ public class PhilosopherGroup {
         }
     }
 
+    /**
+     * Prints a summary of how many times each philosopher was able to eat
+     * during the dining session
+     */
     public void summarizeDining() {
         for (Philosopher p : philosophers) {
             System.out.println("Philosopher " + p.getId() + " ate " + p.getEatCount() + " times");

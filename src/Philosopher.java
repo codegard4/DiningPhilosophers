@@ -6,32 +6,49 @@ package src;
  * chopsticks and thinking in between eating
  */
 public class Philosopher implements Runnable {
+    /**
+     * The duration in milliseconds that a philosopher will think before attempting to eat again
+     */
+    private final int THINK_TIME = 200;
 
-    public static void main(String[] args) {
+    /**
+     * The duration in milliseconds that a philosopher spends eating
+     */
+    private final int EAT_TIME = 200;
 
-    }
-
-    // how long will the philosopher think and eat?
-    private final int THINK_TIME = 200 * 1;
-    private final int EAT_TIME = 200 * 1;
-
-    // philosopher's chopsticks
+    /**
+     * The chopstick to the philosopher's left
+     */
     private final Chopstick leftChopstick;
+
+    /**
+     * The chopstick to the philosopher's right
+     */
     private final Chopstick rightChopstick;
 
-    // philosopher's thread
-    private final Thread thread;
-    // is the philosopher currently dining
+    /**
+     * The philosopher's thread. 
+     */
+    private Thread thread; // When I tried setting this as final and initializing it in the constructor, I got a warning when running using ant.
+
+    /**
+     * is the philosopher currently dining
+     */
     private boolean dining;
 
-    // number of times each philosopher has eaten
+    /**
+     * number of times each philosopher has eaten
+     */
     private int eatCount = 0;
-    // identifier for the philosophers
+
+    /**
+     * Unique identifier for this philosopher
+     */
     private final int id;
 
     /**
      * Constructor for the philosopher
-     * 
+     *
      * @param id    unique id
      * @param left  left chopstick
      * @param right right chopstick
@@ -40,7 +57,7 @@ public class Philosopher implements Runnable {
         leftChopstick = left;
         this.id = id;
         rightChopstick = right;
-        thread = new Thread(this);
+        // Don't initialize thread in the constructor
     }
 
     /**
@@ -48,6 +65,8 @@ public class Philosopher implements Runnable {
      */
     public void startDining() {
         dining = true;
+        // Create and start the thread here, when the object is fully initialized
+        thread = new Thread(this);
         thread.start();
     }
 
@@ -60,6 +79,7 @@ public class Philosopher implements Runnable {
 
     /**
      * Runs the thread
+     * Continuously tries to grab chopsticks, eat, and think while dining is true
      */
     @Override
     public void run() {
@@ -121,7 +141,7 @@ public class Philosopher implements Runnable {
 
     /**
      * Returns the number of times a philosopher has eaten
-     * 
+     *
      * @return number of eats
      */
     public int getEatCount() {
@@ -129,8 +149,8 @@ public class Philosopher implements Runnable {
     }
 
     /**
-     * Returns the philospher's id
-     * 
+     * Returns the philosopher's id
+     *
      * @return id
      */
     public int getId() {

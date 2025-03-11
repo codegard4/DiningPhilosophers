@@ -1,15 +1,29 @@
 package src;
+
 /**
  * Chopstick class
  * A chopstick can be acquired by an owner and released
  */
 public class Chopstick {
-    public volatile boolean acquired;
-    public final int id;
-    public Philosopher owner;
+    /**
+     * Flag indicating whether the chopstick is currently acquired by a philosopher
+     */
+    private volatile boolean acquired;
+
+    /**
+     * Unique identifier for this chopstick
+     */
+    private final int id;
+
+    /**
+     * Reference to the philosopher currently owning this chopstick, or null if not acquired
+     */
+    private Philosopher owner;
 
     /**
      * Constructor for a chopstick
+     *
+     * @param id the unique identifier for this chopstick
      */
     public Chopstick(int id) {
         acquired = false;
@@ -19,11 +33,13 @@ public class Chopstick {
 
     /**
      * Allows a philosopher to acquire a chopstick
-     * @return whether the chopstick can be acquired
+     *
+     * @param owner the philosopher attempting to acquire this chopstick
+     * @return whether the chopstick was successfully acquired
      */
     public synchronized boolean acquire(Philosopher owner) {
         if (acquired) {
-            return false;
+            return false; // Chopstick is already in use
         } else {
             this.owner = owner;
             acquired = true;
