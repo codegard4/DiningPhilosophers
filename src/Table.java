@@ -22,7 +22,7 @@ public class Table {
      * The duration in milliseconds that the philosophers will dine for
      */
     private final int DINING_TIME = 5000;
-    
+
     /**
      * Flag to determine verbose output mode
      */
@@ -49,7 +49,7 @@ public class Table {
 
         // Set verbose flag for chopsticks
         Chopstick.setVerbose(VERBOSE);
-        
+
         // instantiate chopsticks
         for (int i = 0; i < chopsticks.length; i++) {
             chopsticks[i] = new Chopstick(i + 1);

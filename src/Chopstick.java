@@ -19,15 +19,15 @@ public class Chopstick {
      * Reference to the philosopher currently owning this chopstick, or null if not acquired
      */
     private Philosopher owner;
-    
+
     /**
      * Static flag to enable verbose logging of chopstick state changes
      */
     private static boolean verbose = false;
-    
+
     /**
      * Set the verbose flag for all chopsticks
-     * 
+     *
      * @param flag true to enable verbose logging, false to disable
      */
     public static void setVerbose(boolean flag) {
@@ -78,5 +78,9 @@ public class Chopstick {
         } else {
             System.err.println("Tried to release unacquired chopstick: " + id + " Owner: " + owner);
         }
+    }
+
+    public boolean isAvailable() {
+        return !acquired;
     }
 }

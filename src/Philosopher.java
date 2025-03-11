@@ -7,14 +7,15 @@ package src;
  */
 public class Philosopher implements Runnable {
     /**
-     * The duration in milliseconds that a philosopher will think before attempting to eat again
+     * The duration in milliseconds that a philosopher will think before attempting
+     * to eat again
      */
-    private final int THINK_TIME = 2000;
+    private final int THINK_TIME = 1000 * 1;
 
     /**
      * The duration in milliseconds that a philosopher spends eating
      */
-    private final int EAT_TIME = 2000;
+    private final int EAT_TIME = 1000 * 1;
 
     /**
      * The chopstick to the philosopher's left
@@ -27,9 +28,10 @@ public class Philosopher implements Runnable {
     private final Chopstick rightChopstick;
 
     /**
-     * The philosopher's thread. 
+     * The philosopher's thread.
      */
-    private Thread thread; // When I tried setting this as final and initializing it in the constructor, I got a warning when running using ant.
+    private Thread thread; // When I tried setting this as final and initializing it in the constructor, I
+    // got a warning when running using ant.
 
     /**
      * is the philosopher currently dining
@@ -93,22 +95,32 @@ public class Philosopher implements Runnable {
      * If you can only get one then release it
      * If you can get both, eat then think
      */
-    public synchronized void grabChopsticks() {
-        boolean left = leftChopstick.acquire(this);
-        boolean right = rightChopstick.acquire(this);
+    public void grabChopsticks() {
+        // Try to acquire the first chopstick
+        synchronized (leftChopstick) {
+            synchronized (rightChopstick) {
+                boolean hasFirst = leftChopstick.acquire(this);
+                if (!hasFirst) {
+                    return; // Couldn't get the first chopstick, try again later
+                }
+                boolean hasSecond = rightChopstick.acquire(this);
+                if (!hasSecond) {
+                    // Couldn't get the second chopstick, release the first
+                    leftChopstick.release();
+                    return;
+                }
+                // Got both chopsticks, eat
+                eat();
+                eatCount++;
 
-        // if we can get both chopsticks then eat
-        if (left & right) {
-            eat();
-            eatCount++;
-            releaseChopsticks();
-            think();
-            // if we can only get one then release it so someone else can eat
-        } else if (left) {
-            leftChopstick.release();
-        } else if (right) {
-            rightChopstick.release();
+                // Release the chopsticks (still in the synchronized blocks)
+                rightChopstick.release();
+                leftChopstick.release();
+            }
         }
+
+        // Think after eating
+        think();
     }
 
     /**
