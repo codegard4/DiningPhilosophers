@@ -9,12 +9,12 @@ public class Philosopher implements Runnable {
     /**
      * The duration in milliseconds that a philosopher will think before attempting to eat again
      */
-    private final int THINK_TIME = 200;
+    private final int THINK_TIME = 2000;
 
     /**
      * The duration in milliseconds that a philosopher spends eating
      */
-    private final int EAT_TIME = 200;
+    private final int EAT_TIME = 2000;
 
     /**
      * The chopstick to the philosopher's left

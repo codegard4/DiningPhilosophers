@@ -19,17 +19,27 @@ git clone https://github.com/codegard4/DiningPhilosophers
 ```
 
 #### Option 1: Running with Ant
+Normal execution:
 ```bash
 ant run
+```
+
+Execution with verbose output (showing chopstick acquisitions and releases):
+```bash
+ant run-verbose
 ```
 
 #### Option 2: Running with IDE
 - Open the project in your IDE
 - Run `Table.java` 
+- To enable verbose output, add the JVM argument: `-Dverbose=true`
 
 #### Configurations
 In the `Table.java` main method you can change the following configuration:
 - `NUMBER_OF_PHILOSOPHERS` - Number of philosophers
+
+### Verbose Mode
+When enabled, verbose mode prints detailed information about chopstick acquisitions and releases, showing which philosopher acquires or releases which chopstick. This helps in visualizing the resource contention and understanding how the program avoids deadlocks.
 
 ## Description of Our Solution
 
@@ -44,4 +54,4 @@ In the `Table.java` main method you can change the following configuration:
 ### Philosophers  
 - Run 5 philosophers  
 - Handle race conditions and deadlocks  
-- The philosophers must eat, give up chopsticks, get chopsticks and not hold onto chopsticks for too long  
+- The philosophers must eat, give up chopsticks, get chopsticks and not hold onto chopsticks for too long

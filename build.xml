@@ -1,7 +1,7 @@
 <project name="DiningPhilosophers" default="run" basedir=".">
     <!-- Project Description -->
     <description>
-        Dining Philosophers Problem Implementation
+        Dining Philosophers Problem Implementation with concurrent threads
     </description>
 
     <!-- Project Properties -->
@@ -57,5 +57,12 @@
     <!-- Run from JAR file -->
     <target name="run-jar" depends="jar" description="run the application from JAR">
         <java jar="${dist}/DiningPhilosophers.jar" fork="true"/>
+    </target>
+
+    <!-- Run with verbose output -->
+    <target name="run-verbose" depends="compile" description="run the program with verbose output">
+        <java classname="src.Table" classpath="${build}">
+            <sysproperty key="verbose" value="true"/>
+        </java>
     </target>
 </project>

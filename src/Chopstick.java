@@ -19,6 +19,20 @@ public class Chopstick {
      * Reference to the philosopher currently owning this chopstick, or null if not acquired
      */
     private Philosopher owner;
+    
+    /**
+     * Static flag to enable verbose logging of chopstick state changes
+     */
+    private static boolean verbose = false;
+    
+    /**
+     * Set the verbose flag for all chopsticks
+     * 
+     * @param flag true to enable verbose logging, false to disable
+     */
+    public static void setVerbose(boolean flag) {
+        verbose = flag;
+    }
 
     /**
      * Constructor for a chopstick
@@ -39,10 +53,14 @@ public class Chopstick {
      */
     public synchronized boolean acquire(Philosopher owner) {
         if (acquired) {
+            // Because we are using spinloop, we are not going to print verbose messages here, as it will be too much
             return false; // Chopstick is already in use
         } else {
             this.owner = owner;
             acquired = true;
+            if (verbose) {
+                System.out.println("Chopstick " + id + ": Acquired by Philosopher " + owner.getId());
+            }
             return true;
         }
     }
@@ -52,6 +70,9 @@ public class Chopstick {
      */
     public synchronized void release() {
         if (acquired) {
+            if (verbose && owner != null) {
+                System.out.println("Chopstick " + id + ": Released by Philosopher " + owner.getId());
+            }
             acquired = false;
             owner = null;
         } else {
