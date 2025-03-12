@@ -47,8 +47,8 @@ public class Table {
         philosophers = new Philosopher[num_philosophers];
         chopsticks = new Chopstick[num_philosophers];
 
-        // Set verbose flag for chopsticks
-        Chopstick.setVerbose(VERBOSE);
+        // Set verbose flag for philosophers instead of chopsticks
+        Philosopher.setVerbose(VERBOSE);
 
         // instantiate chopsticks
         for (int i = 0; i < chopsticks.length; i++) {

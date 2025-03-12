@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Random;
+
 /**
  * Philosopher class
  * A philosopher will dine, which includes eating when they can get two
@@ -7,15 +9,31 @@ package src;
  */
 public class Philosopher implements Runnable {
     /**
-     * The duration in milliseconds that a philosopher will think before attempting
-     * to eat again
+     * Static flag to enable verbose logging of philosopher actions
      */
-    private final int THINK_TIME = 1000 * 1;
+    private static boolean verbose = false;
 
     /**
-     * The duration in milliseconds that a philosopher spends eating
+     * Set the verbose flag for all philosophers
+     *
+     * @param flag true to enable verbose logging, false to disable
      */
-    private final int EAT_TIME = 1000 * 1;
+    public static void setVerbose(boolean flag) {
+        verbose = flag;
+    }
+
+    /**
+     * The maximum duration in milliseconds that a philosopher will think before attempting
+     * to eat again
+     * - We pick random 1 to MAX_THINK_TIME to determine think time.
+     */
+    private final int MAX_THINK_TIME = 1000 * 1;
+
+    /**
+     * The maximum duration in milliseconds that a philosopher will spend eating
+     * - We pick random 1 to MAX_EAT_TIME to determine eat time.
+     */
+    private final int MAX_EAT_TIME = 1000 * 1;
 
     /**
      * The chopstick to the philosopher's left
@@ -47,6 +65,11 @@ public class Philosopher implements Runnable {
      * Unique identifier for this philosopher
      */
     private final int id;
+
+    /*
+     * Random number generator for eating and thinking times
+     */
+    private final Random random = new Random();
 
     /**
      * Constructor for the philosopher
@@ -95,27 +118,38 @@ public class Philosopher implements Runnable {
      */
     public void grabChopsticks() {
         // Try to acquire the first chopstick
-        synchronized (leftChopstick) {
-            synchronized (rightChopstick) {
-                boolean hasFirst = leftChopstick.acquire(this);
-                if (!hasFirst) {
-                    return; // Couldn't get the first chopstick, try again later
-                }
-                boolean hasSecond = rightChopstick.acquire(this);
-                if (!hasSecond) {
-                    // Couldn't get the second chopstick, release the first
-                    leftChopstick.release();
-                    return;
-                }
-                // Got both chopsticks, eat
-                eat();
-                eatCount++;
-
-                // Release the chopsticks (still in the synchronized blocks)
-                rightChopstick.release();
-                leftChopstick.release();
-            }
+        boolean hasFirst = leftChopstick.acquire(this);
+        if (!hasFirst) {
+            return; // Couldn't get the first chopstick, try again later
         }
+        boolean hasSecond = rightChopstick.acquire(this);
+        if (!hasSecond) {
+            // Couldn't get the second chopstick, release the first
+            leftChopstick.release();
+            return;
+        }
+
+        // Print verbose output when both chopsticks are acquired
+        if (verbose) {
+            System.out.printf("Philosopher %d: Acquired chopsticks %d and %d%n",
+                    id, leftChopstick.getId(), rightChopstick.getId());
+            System.out.flush();
+        }
+
+        // Got both chopsticks, eat
+        eat();
+        eatCount++;
+
+        // Print verbose output when releasing chopsticks
+        if (verbose) {
+            System.out.printf("Philosopher %d: Releasing chopsticks %d and %d%n",
+                    id, leftChopstick.getId(), rightChopstick.getId());
+            System.out.flush();
+        }
+
+        // Release the chopsticks
+        rightChopstick.release();
+        leftChopstick.release();
 
         // Think after eating
         think();
@@ -125,6 +159,11 @@ public class Philosopher implements Runnable {
      * Give up both of the chopsticks
      */
     public void releaseChopsticks() {
+        if (verbose) {
+            System.out.printf("Philosopher %d: Forced release of chopsticks %d and %d%n",
+                    id, leftChopstick.getId(), rightChopstick.getId());
+            System.out.flush();
+        }
         leftChopstick.release();
         rightChopstick.release();
     }
@@ -134,7 +173,7 @@ public class Philosopher implements Runnable {
      */
     public void eat() {
         try {
-            Thread.sleep(EAT_TIME);
+            Thread.sleep(random.nextInt(MAX_EAT_TIME) + 1);
         } catch (InterruptedException ignore) {
         }
     }
@@ -144,7 +183,7 @@ public class Philosopher implements Runnable {
      */
     public void think() {
         try {
-            Thread.sleep(THINK_TIME);
+            Thread.sleep(random.nextInt(MAX_THINK_TIME) + 1);
         } catch (InterruptedException ignore) {
         }
     }
