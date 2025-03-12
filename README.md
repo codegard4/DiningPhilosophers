@@ -19,6 +19,10 @@ git clone https://github.com/codegard4/DiningPhilosophers
 ```
 
 #### Option 1: Running with Ant
+```bash
+ant compile
+```
+
 Normal execution:
 ```bash
 ant run
