@@ -59,7 +59,6 @@ public class Philosopher implements Runnable {
         leftChopstick = left;
         this.id = id;
         rightChopstick = right;
-        // Don't initialize thread in the constructor
     }
 
     /**
@@ -67,7 +66,6 @@ public class Philosopher implements Runnable {
      */
     public void startDining() {
         dining = true;
-        // Create and start the thread here, when the object is fully initialized
         thread = new Thread(this);
         thread.start();
     }
