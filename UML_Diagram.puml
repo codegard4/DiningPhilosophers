@@ -1,0 +1,57 @@
+@startuml
+
+class Table {
+    - final int DINING_TIME
+    - static final boolean VERBOSE
+    - final Philosopher[] philosophers
+    - final Chopstick[] chopsticks
+    + Table(int num_philosophers)
+    + void dine()
+    + void startThreads()
+    + void stopThreads()
+    + void summarizeDining()
+    + static void main(String[] args)
+}
+
+class Philosopher {
+    - static boolean verbose
+    - final int MAX_THINK_TIME
+    - final int MAX_EAT_TIME
+    - final Chopstick leftChopstick
+    - final Chopstick rightChopstick
+    - Thread thread
+    - boolean dining
+    - int eatCount
+    - final int id
+    - final Random random
+    + Philosopher(int id, Chopstick left, Chopstick right)
+    + void startDining()
+    + void stopDining()
+    + void run()
+    + void grabChopsticks()
+    + void releaseChopsticks()
+    + void eat()
+    + void think()
+    + int getEatCount()
+    + int getId()
+    + static void setVerbose(boolean flag)
+    + String toString()
+}
+
+class Chopstick {
+    - volatile boolean acquired
+    - final int id
+    - Philosopher owner
+    + Chopstick(int id)
+    + synchronized boolean acquire(Philosopher owner)
+    + synchronized void release()
+    + boolean isAvailable()
+    + int getId()
+}
+
+Table "1" o-- "n" Philosopher
+Table "1" o-- "n" Chopstick
+Philosopher "1" -- "1" Chopstick : left
+Philosopher "1" -- "1" Chopstick : right
+Philosopher ..> Runnable : implements
+@enduml
