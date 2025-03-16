@@ -53,5 +53,4 @@ Table "1" o-- "n" Philosopher
 Table "1" o-- "n" Chopstick
 Philosopher "1" -- "1" Chopstick : left
 Philosopher "1" -- "1" Chopstick : right
-Philosopher ..> Runnable : implements
 @enduml
