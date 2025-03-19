@@ -16,7 +16,8 @@ public class Chopstick {
     private final int id;
 
     /**
-     * Reference to the philosopher currently owning this chopstick, or null if not acquired
+     * Reference to the philosopher currently owning this chopstick, or null if not
+     * acquired
      */
     private Philosopher owner;
 
@@ -56,7 +57,6 @@ public class Chopstick {
             owner = null;
         } else {
             System.err.printf("Tried to release unacquired chopstick: %d Owner: %s%n", id, owner);
-            System.err.flush(); // Force immediate output of error messages
         }
     }
 

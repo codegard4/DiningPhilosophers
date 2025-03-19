@@ -23,7 +23,8 @@ public class Philosopher implements Runnable {
     }
 
     /**
-     * The maximum duration in milliseconds that a philosopher will think before attempting
+     * The maximum duration in milliseconds that a philosopher will think before
+     * attempting
      * to eat again
      * - We pick random 1 to MAX_THINK_TIME to determine think time.
      */
@@ -133,7 +134,6 @@ public class Philosopher implements Runnable {
         if (verbose) {
             System.out.printf("Philosopher %d: Acquired chopsticks %d and %d%n",
                     id, leftChopstick.getId(), rightChopstick.getId());
-            System.out.flush();
         }
 
         // Got both chopsticks, eat
@@ -144,7 +144,6 @@ public class Philosopher implements Runnable {
         if (verbose) {
             System.out.printf("Philosopher %d: Releasing chopsticks %d and %d%n",
                     id, leftChopstick.getId(), rightChopstick.getId());
-            System.out.flush();
         }
 
         // Release the chopsticks
@@ -162,7 +161,6 @@ public class Philosopher implements Runnable {
         if (verbose) {
             System.out.printf("Philosopher %d: Forced release of chopsticks %d and %d%n",
                     id, leftChopstick.getId(), rightChopstick.getId());
-            System.out.flush();
         }
         leftChopstick.release();
         rightChopstick.release();
