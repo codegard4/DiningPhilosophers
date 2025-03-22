@@ -3,7 +3,7 @@
 ## Requirements
 Here we include the project requirements that were relevant to the coding portion of this project:
 - [x] Groups should preferably be 2 (3 students at most)
-  - **Our group consists of 2 students
+  - Our group consists of 2 students
 - [x] The solution must be uploaded to GitHub and the location of the
 repository emailed to the professor PRIOR to the presentation
   - Link emailed on 2025-03-21
