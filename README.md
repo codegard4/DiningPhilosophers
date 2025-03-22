@@ -1,6 +1,6 @@
-## Philosophers Problem  
-There are 5 philosophers  
-Each philosopher must wait for both of its chopsticks to be free to use, then it will eat  
+## Dining Philosophers Problem  
+In the default run configuration there are 5 philosophers and 5 chopsticks  
+Each philosopher must wait for both of its chopsticks to be free to use, then it will eat, release chopsticks, think, then try to eat again cyclically
 
 ### Prerequisites
 - Java Development Kit (JDK) 21.0.4
@@ -44,6 +44,24 @@ In the `Table.java` main method you can change the following configuration:
 
 ### Verbose Mode
 When enabled, verbose mode prints detailed information about chopstick acquisitions and releases, showing which philosopher acquires or releases which chopstick. This helps in visualizing the resource contention and understanding how the program avoids deadlocks.
+
+### Generate UML
+
+To generate UML diagrams using PlantUML, follow these steps:
+
+1. Download the latest plantuml.jar from the official site: https://plantuml.com/download.
+2. Place plantuml.jar in your project directory (or any desired location).
+3. Create or update your UML diagram file (e.g., diagram.uml).
+4. Run the following command in your terminal to generate a png:
+   ```bash
+   java -jar plantuml.jar diagram.uml
+   ```
+   or to generate an svg:
+   ```bash
+   java -jar plantuml.jar -tsvg *.puml
+   ```
+5. The diagram image  will be generated in the same directory.
+
 
 ## Description of Our Solution
 
