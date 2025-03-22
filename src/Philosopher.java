@@ -155,18 +155,6 @@ public class Philosopher implements Runnable {
     }
 
     /**
-     * Give up both of the chopsticks
-     */
-    public void releaseChopsticks() {
-        if (verbose) {
-            System.out.printf("Philosopher %d: Forced release of chopsticks %d and %d%n",
-                    id, leftChopstick.getId(), rightChopstick.getId());
-        }
-        leftChopstick.release();
-        rightChopstick.release();
-    }
-
-    /**
      * Eat for a certain amount of time
      */
     public void eat() {
